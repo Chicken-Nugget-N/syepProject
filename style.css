@@ -48,10 +48,22 @@ html {
     display: inline-block;
 }
 
-.header a::hover, .header a::hover::after {
+.header a:hover, .header a:hover::after {
     display: inline;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     transform: translateY(-3px);
-    text-transform: uppercase;
     content: "!!!";
+}
+
+.section {
+  display: flex;
+  flex-flow: row wrap;
+  margin:  20px 30px;
+  justify-content: space-around;
+}
+
+.filter {
+  background: #CCCCCC;
+  padding: 10px;
+  
 }
