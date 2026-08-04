@@ -12,16 +12,17 @@ html {
 .header {
     display: flex;
     justify-content: space-between;
-    margin: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
     color: #FFFFFF;
-    background-color: #413838;
-    border-radius: 15px;
+    background-color: #2f8696;
+    border-radius: 8px;
     align-items: center;
-    padding: 10px;
-    font-family:  Georgia, "Times New Roman", serif;
-    font-size: 33px;
-    padding-left: 7%;
-    padding-right: 20px;
+    padding: 30px;
+    font-family:  'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 34px;
+    padding-left: 4%;
+    padding-right: 5%;
     border: rgb(0,0,0) solid 5px;
     height: 75px;
 }
@@ -35,11 +36,13 @@ html {
 .headerbuttons {
     display: flex;
     justify-content: space-around;
-    gap: 30px;
-    font-family: ui-monospace, monospace;
-    font-size: 17px;  
+    gap: 50px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, 'bold';
+    font-size: 21px;  
     text-align: center;
     align-items: center;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 
@@ -54,3 +57,4 @@ html {
     transform: translateY(-3px);
     content: "!!!";
 }
+
