@@ -1,1 +1,53 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px;
+    color: #FFFFFF;
+    background-color: #DDDDDD;
+    border-radius: 15px;
+    align-items: center;
+    padding: 10px;
+    font-family: OCR A Std, monospace;
+    font-size: 33px;
+    padding-left: 7%;
+    border: rgb(0,0,0) solid 5px;
+    height: 75px;
+}
+
+
+.header a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.headerbuttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    font-family: American Typewriter, sans-serif;
+    font-size: 17px;  
+    text-align: center;
+    align-items: center;
+
+
+}
+
+
+.header a {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, text-shadow 0.2s ease, drop-shadow 0.2s ease;
+}
+
+
+.header a {
+    display: inline-block;
+}
+
+
+.header a::hover, .header a::hover::after {
+    display: inline;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    transform: translateY(-3px);
+    text-transform: uppercase;
+    content: "!!!";
+}
 
