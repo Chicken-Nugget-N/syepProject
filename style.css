@@ -14,11 +14,11 @@ html {
     justify-content: space-between;
     margin: 15px;
     color: #FFFFFF;
-    background-color: #CCCCCC;
+    background-color: #413838;
     border-radius: 15px;
     align-items: center;
     padding: 10px;
-    font-family: OCR A Std, monospace;
+    font-family:  Georgia, "Times New Roman", serif;
     font-size: 33px;
     padding-left: 7%;
     padding-right: 20px;
@@ -28,7 +28,7 @@ html {
 
 
 .header a {
-    color: #FFFFFF;
+    color: #ffffff;
     text-decoration: none;
 }
 
@@ -36,7 +36,7 @@ html {
     display: flex;
     justify-content: space-around;
     gap: 30px;
-    font-family: American Typewriter, sans-serif;
+    font-family: ui-monospace, monospace;
     font-size: 17px;  
     text-align: center;
     align-items: center;
@@ -55,3 +55,4 @@ html {
     text-transform: uppercase;
     content: "!!!";
 }
+
