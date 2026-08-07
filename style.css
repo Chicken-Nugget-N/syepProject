@@ -58,7 +58,7 @@ nav button:hover{
 
 /* Hero */
 
-.hero{
+.banner{
     position:relative;
     background:white;
     border-radius:18px;
@@ -67,12 +67,12 @@ nav button:hover{
     cursor:pointer;
 }
 
-.hero img{
+.banner img{
     width:100%;
     display:block;
 }
 
-.hero-content{
+.banner-content{
     position:absolute;
     top:24%;
     right:5%;
@@ -80,17 +80,17 @@ nav button:hover{
     color:#287a73;
 }
 
-.hero-content h1{
+.banner-content h1{
     font-size:3rem;
 }
 
-.hero-content p{
+.banner-content p{
     margin-top:8px;
     color:#3c5d4c;
     font-size:15px;
 }
 
-.hero-content small{
+.banner-content small{
     color:#4d6f5f;
 }
 
@@ -184,6 +184,10 @@ nav button:hover{
     box-shadow:0 8px 18px rgba(0,0,0,.3);
 }
 
+.card.hidden{
+    display:none;
+}
+
 .card img{
     width:100%;
     display:block;
@@ -207,7 +211,7 @@ nav button:hover{
 
 @media(max-width:900px){
 
-    .hero-content h1{
+    .banner-content h1{
         font-size:2rem;
     }
 
