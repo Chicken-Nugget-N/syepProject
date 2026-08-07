@@ -1,24 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Volunteer Website</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Portal</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="header">
-    <p id="title">Volunteer Website!</p>
-    <div class="headerbuttons">
-    <a href="about.html">about us</a>
-    <a href="index.html">homepage</a>
-    <a href="volunteerform.html">provide volunteering</a>
-    <a href="signin.html">sign in</a>
+<div class="wrapper">
+
+    <nav>
+        <button>HOME</button>
+        <button>ABOUT US</button>
+        <button>PROVIDE VOLUNTEERING</button>
+        <button>SIGN IN</button>
+
+        <div class="search">
+            <input type="text" placeholder="SEARCH">
+            🔍
+        </div>
+    </nav>
+
+    <div class="hero">
+
+        <img src="images/volunteer.png" alt="Volunteer Portal">
+
+        <div class="hero-content">
+            <h1>Volunteering Portal</h1>
+
+            <p>
+                "Life's most persistent and urgent question is,
+                'What are you doing for others?'"
+            </p>
+
+            <small>— Martin Luther King Jr.</small>
+        </div>
+
+        <div class="button-row">
+            <button id="ageBtn">AGE GROUP</button>
+            <button id="typeBtn">TYPES OF VOLUNTEERING</button>
+            <button id="eligibilityBtn">ELIGIBILITY</button>
+        </div>
+
+        <div class="learn">
+            <button id="learnBtn">LEARN MORE ➜</button>
+        </div>
+
     </div>
-  </div>
 
+    <div class="cards opportunities-scroll">
 
+        <a class="card" href="https://www.bowery.org/">
+            <span class="badge">01</span>
+            <img src="images/bowerymission.png" alt="Bowery Mission">
+        </a>
+
+        <a class="card" href="https://www.cityharvest.org/">
+            <span class="badge">02</span>
+            <img src="images/cityharvest.jpg" alt="City Harvest">
+        </a>
+
+        <a class="card" href="https://www.newyorkcares.org/">
+            <span class="badge">03</span>
+            <img src="images/newyorkcares.png" alt="New York Cares">
+        </a>
+
+        <a class="card" href="https://www.foodbanknyc.org/">
+            <span class="badge">04</span>
+            <img src="images/bowerymission.png" alt="Food Bank For New York City">
+        </a>
+
+        <a class="card" href="https://www.volunteermatch.org/">
+            <span class="badge">05</span>
+            <img src="images/cityharvest.jpg" alt="VolunteerMatch">
+        </a>
+
+        <a class="card" href="https://www.habitatnyc.org/">
+            <span class="badge">06</span>
+            <img src="images/newyorkcares.png" alt="Habitat for Humanity New York City">
+        </a>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
