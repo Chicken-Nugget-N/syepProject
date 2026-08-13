@@ -2,29 +2,677 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document Title</title>
 
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sign In - Volunteer Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .account-page {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .account-box {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.2);
+        }
+
+        .account-box h1 {
+            color: #287a73;
+            margin-bottom: 10px;
+        }
+
+        .account-box > p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #3d8b70;
+        }
+
+        .account-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background: #3d8b70;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .account-button:hover {
+            background: #287a73;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .switch-text button {
+            background: none;
+            border: none;
+            color: #287a73;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .profile-upload {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-preview {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #dfe9e5;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 12px;
+        }
+
+        .profile-upload input {
+            width: 100%;
+        }
+
+        .account-message {
+            display: none;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            background: #eef6f2;
+            color: #287a73;
+        }
+
+        .account-message.show {
+            display: block;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #287a73;
+            text-decoration: none;
+        }
+
+        @media(max-width: 600px) {
+
+            .account-box {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-  <div class="header">
-    <p id="title">Volunteer Website!</p>
-    <div class="headerbuttons">
-    <a href="about.html">about us</a>
-    <a href="index.html">homepage</a>
-    <a href="volunteerform.html">provide volunteering</a>
-    <a href="signin.html">sign in</a>
-    </div>
-  </div>
+<div class="wrapper">
 
-  <div class='filter'>
-    
-  </div>
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <a href="index.html">
+            <button>HOME</button>
+        </a>
+
+        <a href="about.html">
+            <button>ABOUT US</button>
+        </a>
+
+        <a href="volunteerform.html">
+            <button>PROVIDE VOLUNTEERING</button>
+        </a>
+
+        <a href="signin.html">
+            <button>SIGN IN</button>
+        </a>
+
+    </nav>
+
+
+    <main class="account-page">
+
+        <div class="account-box">
+
+
+            <!-- SIGN IN -->
+
+            <div id="signinSection">
+
+                <h1>Sign In</h1>
+
+                <p>
+                    Welcome back to the Volunteer Portal.
+                </p>
+
+
+                <div
+                    id="signinMessage"
+                    class="account-message"
+                ></div>
+
+
+                <form id="signinForm">
+
+                    <div class="form-group">
+
+                        <label for="signinEmail">
+                            Email
+                        </label>
+
+                        <input
+                            id="signinEmail"
+                            type="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="signinPassword">
+                            Password
+                        </label>
+
+                        <input
+                            id="signinPassword"
+                            type="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="account-button"
+                        type="submit"
+                    >
+                        SIGN IN
+                    </button>
+
+                </form>
+
+
+                <div class="switch-text">
+
+                    Don't have an account?
+
+                    <button id="showSignup">
+                        Sign Up
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SIGN UP -->
+
+            <div id="signupSection" style="display:none;">
+
+                <h1>Create Account</h1>
+
+                <p>
+                    Create your Volunteer Portal profile.
+                </p>
+
+
+                <div
+                    id="signupMessage"
+                    class="account-message"
+                ></div>
+
+
+                <form id="signupForm">
+
+
+                    <!-- PROFILE PICTURE -->
+
+                    <div class="profile-upload">
+
+                        <img
+                            id="profilePreview"
+                            class="profile-preview"
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='100%25' height='100%25' fill='%23dfe9e5'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-size='35'%3E👤%3C/text%3E%3C/svg%3E"
+                            alt="Profile Preview"
+                        >
+
+                        <label for="profilePicture">
+                            Choose Profile Picture
+                        </label>
+
+                        <input
+                            id="profilePicture"
+                            type="file"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="signupName">
+                            Full Name
+                        </label>
+
+                        <input
+                            id="signupName"
+                            type="text"
+                            placeholder="Your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="signupEmail">
+                            Email
+                        </label>
+
+                        <input
+                            id="signupEmail"
+                            type="email"
+                            placeholder="Your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="signupPassword">
+                            Password
+                        </label>
+
+                        <input
+                            id="signupPassword"
+                            type="password"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="account-button"
+                        type="submit"
+                    >
+                        CREATE ACCOUNT
+                    </button>
+
+                </form>
+
+
+                <div class="switch-text">
+
+                    Already have an account?
+
+                    <button id="showSignin">
+                        Sign In
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <a
+                class="back-home"
+                href="index.html"
+            >
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /*
+    ==========================================
+    ELEMENTS
+    ==========================================
+    */
+
+    const signinSection =
+        document.getElementById("signinSection");
+
+    const signupSection =
+        document.getElementById("signupSection");
+
+    const showSignup =
+        document.getElementById("showSignup");
+
+    const showSignin =
+        document.getElementById("showSignin");
+
+    const signinForm =
+        document.getElementById("signinForm");
+
+    const signupForm =
+        document.getElementById("signupForm");
+
+    const profilePicture =
+        document.getElementById("profilePicture");
+
+    const profilePreview =
+        document.getElementById("profilePreview");
+
+    const signupMessage =
+        document.getElementById("signupMessage");
+
+    const signinMessage =
+        document.getElementById("signinMessage");
+
+
+    /*
+    ==========================================
+    SWITCH TO SIGN UP
+    ==========================================
+    */
+
+    showSignup.onclick = () => {
+
+        signinSection.style.display = "none";
+
+        signupSection.style.display = "block";
+
+        signinMessage.classList.remove("show");
+
+    };
+
+
+    /*
+    ==========================================
+    SWITCH TO SIGN IN
+    ==========================================
+    */
+
+    showSignin.onclick = () => {
+
+        signupSection.style.display = "none";
+
+        signinSection.style.display = "block";
+
+        signupMessage.classList.remove("show");
+
+    };
+
+
+    /*
+    ==========================================
+    PROFILE PICTURE PREVIEW
+    ==========================================
+    */
+
+    profilePicture.onchange = event => {
+
+        const file =
+            event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload = () => {
+
+            profilePreview.src =
+                reader.result;
+
+        };
+
+        reader.readAsDataURL(file);
+
+    };
+
+
+    /*
+    ==========================================
+    SIGN UP
+    ==========================================
+    */
+
+    signupForm.onsubmit = event => {
+
+        event.preventDefault();
+
+
+        const name =
+            document
+                .getElementById("signupName")
+                .value
+                .trim();
+
+        const email =
+            document
+                .getElementById("signupEmail")
+                .value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            document
+                .getElementById("signupPassword")
+                .value;
+
+
+        /*
+        Get profile picture.
+
+        If the user doesn't choose one,
+        use a default picture.
+        */
+
+        const picture =
+            profilePreview.src;
+
+
+        /*
+        Save the account.
+        */
+
+        const account = {
+
+            name: name,
+
+            email: email,
+
+            password: password,
+
+            picture: picture
+
+        };
+
+
+        localStorage.setItem(
+            "volunteerAccount",
+            JSON.stringify(account)
+        );
+
+
+        /*
+        Automatically sign the user in.
+        */
+
+        localStorage.setItem(
+            "volunteerLoggedIn",
+            "true"
+        );
+
+
+        signupMessage.textContent =
+            "Account created! Redirecting...";
+
+        signupMessage.classList.add(
+            "show"
+        );
+
+
+        setTimeout(() => {
+
+            window.location.href =
+                "index.html";
+
+        }, 800);
+
+    };
+
+
+    /*
+    ==========================================
+    SIGN IN
+    ==========================================
+    */
+
+    signinForm.onsubmit = event => {
+
+        event.preventDefault();
+
+
+        const email =
+            document
+                .getElementById("signinEmail")
+                .value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            document
+                .getElementById("signinPassword")
+                .value;
+
+
+        /*
+        Get saved account.
+        */
+
+        const savedAccount =
+            localStorage.getItem(
+                "volunteerAccount"
+            );
+
+
+        if (!savedAccount) {
+
+            signinMessage.textContent =
+                "No account has been created yet.";
+
+            signinMessage.classList.add(
+                "show"
+            );
+
+            return;
+
+        }
+
+
+        const account =
+            JSON.parse(savedAccount);
+
+
+        /*
+        Check login information.
+        */
+
+        if (
+            email === account.email &&
+            password === account.password
+        ) {
+
+            localStorage.setItem(
+                "volunteerLoggedIn",
+                "true"
+            );
+
+
+            signinMessage.textContent =
+                "Signed in! Redirecting...";
+
+            signinMessage.classList.add(
+                "show"
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "index.html";
+
+            }, 800);
+
+        } else {
+
+            signinMessage.textContent =
+                "Incorrect email or password.";
+
+            signinMessage.classList.add(
+                "show"
+            );
+
+        }
+
+    };
+
+</script>
 
 </body>
 

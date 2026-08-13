@@ -516,3 +516,57 @@ nav button:hover {
         font-size: 1.7rem;
     }
 }
+
+/* =========================
+   USER PROFILE
+========================= */
+
+.profile-area {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 4px 10px 4px 5px;
+    border-radius: 25px;
+}
+
+.profile-area.active {
+    display: flex;
+}
+
+.profile-picture-small {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #dfe9e5;
+}
+
+.profile-name {
+    color: #2e2e2e;
+    font-size: 12px;
+    font-weight: bold;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.signout-button {
+    border: none;
+    background: #2e2e2e;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 65px;
+    transition: .2s;
+}
+
+.signout-button:hover {
+    background: #444;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}

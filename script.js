@@ -171,11 +171,41 @@ function createResultCard(opportunity, number) {
         opportunity.borough ||
         "New York City";
 
-    const url =
+
+    /*
+    ==========================================
+    FIND A VALID LINK
+    ==========================================
+    */
+
+    let url =
         opportunity.url ||
         opportunity.website ||
-        "https://www.nycservice.org/";
+        opportunity.link ||
+        "";
 
+
+    /*
+    Make sure the URL actually starts with
+    http:// or https://
+    */
+
+    if (
+        !url ||
+        !url.startsWith("http://") &&
+        !url.startsWith("https://")
+    ) {
+
+        url = "https://www.nycservice.org/";
+
+    }
+
+
+    /*
+    ==========================================
+    CREATE CARD
+    ==========================================
+    */
 
     const card = document.createElement("article");
 
@@ -220,7 +250,6 @@ function createResultCard(opportunity, number) {
 
     return card;
 }
-
 
 /*
 ====================================================
@@ -323,8 +352,7 @@ SEARCH
 
 async function performSearch(query) {
 
-    const searchTerm =
-        query.trim().toLowerCase();
+    const searchTerm = query.trim().toLowerCase();
 
     if (!searchTerm) {
         return;
@@ -332,44 +360,57 @@ async function performSearch(query) {
 
     showResultsScreen(
         `Search Results: "${query}"`,
-        "Volunteer opportunities matching your search."
+        "Please note some links may be suspicious or unverified. Research links before providing personal information."
     );
 
     resultsContainer.innerHTML = "";
 
-    /*
-     * First search the opportunities already on the website.
-     */
+    // Keeps track of organizations/opportunities
+    // that have already been displayed
+    const seen = new Set();
 
-    const localMatches =
-        localCards.filter(card => {
-
-            const text =
-                card.dataset.search ||
-                "";
-
-            return text
-                .toLowerCase()
-                .includes(searchTerm);
-
-        });
+    let resultNumber = 1;
 
 
     /*
-     * Convert the existing cards into large result cards.
-     */
+    ==========================================
+    SEARCH LOCAL CARDS
+    ==========================================
+    */
 
-    localMatches.forEach((card, index) => {
+    const localMatches = localCards.filter(card => {
 
-        const image =
-            card.querySelector("img");
+        const text = card.dataset.search || "";
+
+        return text
+            .toLowerCase()
+            .includes(searchTerm);
+
+    });
+
+
+    localMatches.forEach(card => {
+
+        const image = card.querySelector("img");
 
         const title =
             image?.alt ||
             "Volunteer Organization";
 
-        const link =
-            card.href;
+        // Convert name to lowercase so
+        // "City Harvest" and "city harvest"
+        // count as the same thing.
+        const uniqueName = title
+            .trim()
+            .toLowerCase();
+
+        // Skip if we already displayed it
+        if (seen.has(uniqueName)) {
+            return;
+        }
+
+        seen.add(uniqueName);
+
 
         const result = {
 
@@ -383,78 +424,99 @@ async function performSearch(query) {
             location:
                 "New York City",
 
-            url: link
+            url: card.href
+
         };
+
 
         resultsContainer.appendChild(
             createResultCard(
                 result,
-                index + 1
+                resultNumber
             )
         );
+
+        resultNumber++;
 
     });
 
 
     /*
-     * Now search NYC Open Data.
-     */
+    ==========================================
+    SEARCH API
+    ==========================================
+    */
 
     const apiResults =
         await getVolunteerData(searchTerm);
 
 
-    /*
-     * Prevent duplicate results.
-     */
+    apiResults.forEach(opportunity => {
 
-    const existingTitles =
-        new Set(
-            localMatches.map(card =>
-                card.querySelector("img")?.alt
+        const title =
+            opportunity.title ||
+            opportunity.name ||
+            opportunity.opportunity ||
+            "Volunteer Opportunity";
+
+        const organization =
+            opportunity.organization ||
+            opportunity.organization_name ||
+            opportunity.org_name ||
+            "";
+
+
+        /*
+        Use both the opportunity title and
+        organization name to create a unique ID.
+        */
+
+        const uniqueName =
+            `${organization} ${title}`
+                .trim()
+                .toLowerCase();
+
+
+        /*
+        Skip duplicate API results.
+        */
+
+        if (seen.has(uniqueName)) {
+            return;
+        }
+
+        seen.add(uniqueName);
+
+
+        resultsContainer.appendChild(
+            createResultCard(
+                opportunity,
+                resultNumber
             )
         );
 
+        resultNumber++;
 
-    const filteredAPIResults =
-        apiResults.filter(item => {
-
-            const title =
-                item.title ||
-                item.name ||
-                item.opportunity ||
-                "";
-
-            return !existingTitles.has(title);
-
-        });
+    });
 
 
-    filteredAPIResults.forEach(
-        (opportunity, index) => {
+    /*
+    ==========================================
+    NO RESULTS
+    ==========================================
+    */
 
-            resultsContainer.appendChild(
-                createResultCard(
-                    opportunity,
-                    localMatches.length + index + 1
-                )
-            );
-
-        }
-    );
-
-
-    if (
-        localMatches.length === 0 &&
-        filteredAPIResults.length === 0
-    ) {
+    if (seen.size === 0) {
 
         noResults.classList.add("active");
+
+    } else {
+
+        noResults.classList.remove("active");
 
     }
 
 }
-
 
 /*
 ====================================================
@@ -483,15 +545,8 @@ SEARCH ICON / LIVE SEARCH
 ====================================================
 */
 
-searchInput.oninput = () => {
-
-    /*
-     * Only automatically search after the user
-     * has entered at least 3 characters.
-     */
-
-    if (searchInput.value.trim().length >= 3) {
-
+searchInput.onkeydown = () => {
+    if (event.key === "Enter") {
         performSearch(
             searchInput.value
         );
@@ -571,114 +626,160 @@ RUN FILTER
 ====================================================
 */
 
-async function runFilter(
-    searchTerm,
-    optionLabel
-) {
+async function runFilter(searchTerm, optionLabel) {
 
-    resultsTitle.textContent =
-        optionLabel;
+    resultsTitle.textContent = optionLabel;
 
     resultsDescription.textContent =
         `Volunteer opportunities related to ${optionLabel.toLowerCase()}.`;
 
     resultsContainer.innerHTML = "";
 
+    noResults.classList.remove("active");
+
+    // Keep track of results we have already displayed
+    const seen = new Set();
+
+    let resultNumber = 1;
+
+
     /*
-     * Search local cards.
-     */
+    ==========================================
+    SEARCH LOCAL CARDS
+    ==========================================
+    */
 
-    const localMatches =
-        localCards.filter(card => {
+    const localMatches = localCards.filter(card => {
 
-            const text =
-                card.dataset.search ||
-                "";
+        const text = card.dataset.search || "";
 
-            return text
-                .toLowerCase()
-                .includes(
-                    searchTerm.toLowerCase()
-                );
+        return text
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
 
-        });
+    });
 
 
-    localMatches.forEach(
-        (card, index) => {
+    localMatches.forEach(card => {
 
-            const image =
-                card.querySelector("img");
+        const image = card.querySelector("img");
 
-            const title =
-                image?.alt ||
-                "Volunteer Organization";
+        const title =
+            image?.alt ||
+            "Volunteer Organization";
 
-            const result = {
+        // Create a unique name
+        const uniqueName =
+            title.trim().toLowerCase();
 
-                title: title,
-
-                organization: title,
-
-                description:
-                    `Explore volunteer opportunities involving ${optionLabel.toLowerCase()}.`,
-
-                location:
-                    "New York City",
-
-                url:
-                    card.href
-            };
-
-            resultsContainer.appendChild(
-                createResultCard(
-                    result,
-                    index + 1
-                )
-            );
-
+        // Don't display duplicates
+        if (seen.has(uniqueName)) {
+            return;
         }
-    );
+
+        seen.add(uniqueName);
+
+
+        const result = {
+
+            title: title,
+
+            organization: title,
+
+            description:
+                `Explore volunteer opportunities involving ${optionLabel.toLowerCase()}.`,
+
+            location:
+                "New York City",
+
+            url: card.href
+
+        };
+
+
+        resultsContainer.appendChild(
+            createResultCard(
+                result,
+                resultNumber
+            )
+        );
+
+        resultNumber++;
+
+    });
 
 
     /*
-     * Search API.
-     */
+    ==========================================
+    SEARCH API
+    ==========================================
+    */
 
     const apiResults =
-        await getVolunteerData(
-            searchTerm
-        );
+        await getVolunteerData(searchTerm);
 
 
-    apiResults.forEach(
-        (opportunity, index) => {
+    apiResults.forEach(opportunity => {
 
-            resultsContainer.appendChild(
-                createResultCard(
-                    opportunity,
-                    localMatches.length + index + 1
-                )
-            );
+        const title =
+            opportunity.title ||
+            opportunity.name ||
+            opportunity.opportunity ||
+            "Volunteer Opportunity";
 
+        const organization =
+            opportunity.organization ||
+            opportunity.organization_name ||
+            opportunity.org_name ||
+            "";
+
+
+        /*
+        Combine organization + title.
+
+        This prevents two identical opportunities
+        from appearing twice.
+        */
+
+        const uniqueName =
+            `${organization} ${title}`
+                .trim()
+                .toLowerCase();
+
+
+        // Skip duplicate
+        if (seen.has(uniqueName)) {
+            return;
         }
-    );
+
+        seen.add(uniqueName);
 
 
-    if (
-        localMatches.length === 0 &&
-        apiResults.length === 0
-    ) {
-
-        noResults.classList.add(
-            "active"
+        resultsContainer.appendChild(
+            createResultCard(
+                opportunity,
+                resultNumber
+            )
         );
+
+        resultNumber++;
+
+    });
+
+
+    /*
+    ==========================================
+    NO RESULTS
+    ==========================================
+    */
+
+    if (seen.size === 0) {
+
+        noResults.classList.add("active");
 
     } else {
 
-        noResults.classList.remove(
-            "active"
-        );
+        noResults.classList.remove("active");
 
     }
 
@@ -970,3 +1071,109 @@ if (opportunitiesScroll) {
         };
 
 }
+
+/*
+====================================================
+LOAD USER PROFILE
+====================================================
+*/
+
+function loadUserProfile() {
+
+    const profileArea =
+        document.getElementById("profileArea");
+
+    if (!profileArea) {
+        return;
+    }
+
+
+    const accountData =
+        localStorage.getItem(
+            "volunteerAccount"
+        );
+
+    const loggedIn =
+        localStorage.getItem(
+            "volunteerLoggedIn"
+        );
+
+
+    /*
+    If there is no account or the user
+    isn't logged in, don't show profile.
+    */
+
+    if (!accountData || loggedIn !== "true") {
+
+        profileArea.classList.remove(
+            "active"
+        );
+
+        return;
+
+    }
+
+
+    const account =
+        JSON.parse(accountData);
+
+
+    /*
+    Display profile.
+    */
+
+    profileArea.innerHTML = `
+
+        <img
+            class="profile-picture-small"
+            src="${account.picture}"
+            alt="Profile picture"
+        >
+
+        <span class="profile-name">
+            ${account.name}
+        </span>
+
+        <button
+            id="signoutButton"
+            class="signout-button"
+        >
+           SIGN OUT
+        </button>
+
+    `;
+
+
+    profileArea.classList.add(
+        "active"
+    );
+
+
+    /*
+    Sign out.
+    */
+
+    document
+        .getElementById("signoutButton")
+        .onclick = () => {
+
+            localStorage.setItem(
+                "volunteerLoggedIn",
+                "false"
+            );
+
+            loadUserProfile();
+
+        };
+
+}
+
+
+/*
+====================================================
+LOAD PROFILE WHEN PAGE OPENS
+====================================================
+*/
+
+loadUserProfile();
