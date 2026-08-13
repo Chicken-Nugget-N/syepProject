@@ -2,4 +2,4 @@
 
 Project for NYSYEP
 
-mostly non-functional
+pretending to be functional
