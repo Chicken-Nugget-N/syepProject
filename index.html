@@ -3,115 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volunteer Portal</title>
+    <title>SYEP Volunteer Portal</title>
 
+    <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="wrapper">
 
-    <nav>
-        <button>HOME</button>
-        <button>ABOUT US</button>
-        <button>PROVIDE VOLUNTEERING</button>
-        <button>SIGN IN</button>
+    <!-- NAVIGATION -->
+    <nav id="mainNav">
+
+        <a href="index.html">
+            <button>HOME</button>
+        </a>
+
+        <a href="about.html">
+            <button>ABOUT US</button>
+        </a>
+
+        <a href="volunteerform.html">
+            <button>PROVIDE VOLUNTEERING</button>
+        </a>
+
+        <a href="signin.html">
+            <button>SIGN IN</button>
+        </a>
 
         <div class="search">
-            <input id="searchInput" type="text" placeholder="SEARCH">
-            🔍
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="SEARCH"
+                autocomplete="off"
+            >
+            <span>🔍</span>
         </div>
+
     </nav>
 
-    <div class="banner">
 
-        <img src="images/volunteer.png" alt="Volunteer Portal">
+    <!-- HOME SCREEN -->
+    <main id="homeScreen">
 
-        <div class="banner-content">
-            <h1>Volunteering Portal</h1>
+        <div class="banner">
 
-            <p>
-                "Life's most persistent and urgent question is,
-                'What are you doing for others?'"
-            </p>
+            <img src="images/volunteer.png" alt="Volunteer Portal">
 
-            <small>— Martin Luther King Jr.</small>
+            <div class="banner-content">
+
+                <h1>Volunteering Portal</h1>
+
+                <p>
+                    "Life's most persistent and urgent question is,
+                    'What are you doing for others?'"
+                </p>
+
+                <small>— Martin Luther King Jr.</small>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button id="ageBtn">
+                    AGE GROUP
+                </button>
+
+                <button id="typeBtn">
+                    TYPES OF VOLUNTEERING
+                </button>
+
+                <button id="eligibilityBtn">
+                    ELIGIBILITY
+                </button>
+
+            </div>
+
+
+            <div class="learn">
+
+                <button id="learnBtn">
+                    LEARN MORE ➜
+                </button>
+
+            </div>
+
         </div>
 
-        <div class="button-row">
-            <button id="ageBtn">AGE GROUP</button>
-            <button id="typeBtn">TYPES OF VOLUNTEERING</button>
-            <button id="eligibilityBtn">ELIGIBILITY</button>
+
+        <!-- ORIGINAL OPPORTUNITIES -->
+        <div class="cards opportunities-scroll">
+
+            <a
+                class="card"
+                href="https://www.bowery.org/"
+                data-search="bowery mission food shelter"
+            >
+                <span class="badge">01</span>
+                <img src="images/bowery.png" alt="Bowery Mission">
+            </a>
+
+            <a
+                class="card"
+                href="https://www.cityharvest.org/"
+                data-search="city harvest food rescue hunger"
+            >
+                <span class="badge">02</span>
+                <img src="images/cityharvest.jpg" alt="City Harvest">
+            </a>
+
+            <a
+                class="card"
+                href="https://www.newyorkcares.org/"
+                data-search="new york cares community service events"
+            >
+                <span class="badge">03</span>
+                <img src="images/nycares.jpg" alt="New York Cares">
+            </a>
+
+            <a
+                class="card"
+                href="https://www.foodbanknyc.org/"
+                data-search="food bank nyc hunger relief"
+            >
+                <span class="badge">04</span>
+                <img
+                    src="images/foodbanknyc.jpg"
+                    alt="Food Bank For New York City"
+                >
+            </a>
+
+            <a
+                class="card"
+                href="https://www.idealist.org/"
+                data-search="idealist volunteer match opportunities local help"
+            >
+                <span class="badge">05</span>
+                <img src="images/idealist.jpeg" alt="Idealist">
+            </a>
+
+            <a
+                class="card"
+                href="https://www.habitatnyc.org/"
+                data-search="habitat housing build community"
+            >
+                <span class="badge">06</span>
+                <img
+                    src="images/Habitat.jpg"
+                    alt="Habitat for Humanity New York City"
+                >
+            </a>
+
+            <a
+                class="card"
+                href="https://www.nycservice.org/"
+                data-search="nyc service civic engagement neighborhood"
+            >
+                <span class="badge">07</span>
+                <img
+                    src="images/nyc service.png"
+                    alt="NYC Service"
+                >
+            </a>
+
+            <a
+                class="card"
+                href="https://www.americorps.gov/"
+                data-search="americorps service national community"
+            >
+                <span class="badge">08</span>
+                <img
+                    src="images/Ameri Cops.webp"
+                    alt="AmeriCorps"
+                >
+            </a>
+
+            <a
+                class="card"
+                href="https://www.redcross.org/"
+                data-search="red cross emergency aid disaster"
+            >
+                <span class="badge">09</span>
+                <img
+                    src="images/American-Red-Cross.png"
+                    alt="American Red Cross"
+                >
+            </a>
+
+            <a
+                class="card"
+                href="https://www.unitedway.org/"
+                data-search="united way helping families support"
+            >
+                <span class="badge">10</span>
+                <img
+                    src="images/unitedway.png"
+                    alt="United Way"
+                >
+            </a>
+
+            <a
+                class="card"
+                href="https://www.salvationarmyusa.org/"
+                data-search="salvation army outreach shelter youth"
+            >
+                <span class="badge">11</span>
+                <img
+                    src="images/The salvation.jpg"
+                    alt="Salvation Army"
+                >
+            </a>
+
         </div>
 
-        <div class="learn">
-            <button id="learnBtn">LEARN MORE ➜</button>
+    </main>
+
+
+    <!-- RESULTS SCREEN -->
+    <section id="resultsScreen" class="results-screen">
+
+        <div class="results-header">
+
+            <button id="backBtn" class="back-button">
+                ← BACK
+            </button>
+
+            <div>
+                <h1 id="resultsTitle">
+                    Volunteer Opportunities
+                </h1>
+
+                <p id="resultsDescription">
+                    Find an opportunity that's right for you.
+                </p>
+            </div>
+
         </div>
 
-    </div>
 
-    <div class="cards opportunities-scroll">
+        <!-- FILTER OPTIONS -->
+        <div id="filterOptions" class="filter-options"></div>
 
-        <a class="card" href="https://www.bowery.org/" data-search="bowery mission food shelter">
-            <span class="badge">01</span>
-            <img src="images/bowerymission.png" alt="Bowery Mission">
-        </a>
 
-        <a class="card" href="https://www.cityharvest.org/" data-search="city harvest food rescue hunger">
-            <span class="badge">02</span>
-            <img src="images/cityharvest.jpg" alt="City Harvest">
-        </a>
+        <!-- RESULTS -->
+        <div id="resultsContainer" class="results-container">
 
-        <a class="card" href="https://www.newyorkcares.org/" data-search="new york cares community service events">
-            <span class="badge">03</span>
-            <img src="images/newyorkcares.png" alt="New York Cares">
-        </a>
+        </div>
 
-        <a class="card" href="https://www.foodbanknyc.org/" data-search="food bank nyc hunger relief">
-            <span class="badge">04</span>
-            <img src="images/bowerymission.png" alt="Food Bank For New York City">
-        </a>
 
-        <a class="card" href="https://www.volunteermatch.org/" data-search="volunteer match opportunities local help">
-            <span class="badge">05</span>
-            <img src="images/cityharvest.jpg" alt="VolunteerMatch">
-        </a>
+        <div id="loading" class="loading">
+            Loading opportunities...
+        </div>
 
-        <a class="card" href="https://www.habitatnyc.org/" data-search="habitat housing build community">
-            <span class="badge">06</span>
-            <img src="images/newyorkcares.png" alt="Habitat for Humanity New York City">
-        </a>
 
-        <a class="card" href="https://www.nycservice.org/" data-search="nyc service civic engagement neighborhood">
-            <span class="badge">07</span>
-            <img src="images/bowerymission.png" alt="NYC Service">
-        </a>
+        <div id="noResults" class="no-results">
+            No volunteer opportunities were found.
+        </div>
 
-        <a class="card" href="https://www.americorps.gov/" data-search="americorps service national community">
-            <span class="badge">08</span>
-            <img src="images/cityharvest.jpg" alt="AmeriCorps">
-        </a>
-
-        <a class="card" href="https://www.redcross.org/" data-search="red cross emergency aid disaster">
-            <span class="badge">09</span>
-            <img src="images/newyorkcares.png" alt="American Red Cross">
-        </a>
-
-        <a class="card" href="https://www.unitedway.org/" data-search="united way helping families support">
-            <span class="badge">10</span>
-            <img src="images/bowerymission.png" alt="United Way">
-        </a>
-
-        <a class="card" href="https://www.salvationarmyusa.org/" data-search="salvation army outreach shelter youth">
-            <span class="badge">11</span>
-            <img src="images/cityharvest.jpg" alt="Salvation Army">
-        </a>
-
-    </div>
+    </section>
 
 </div>
-
-<script src="script.js"></script>
 
 </body>
 </html>
